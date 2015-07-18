@@ -21,10 +21,6 @@ public class ServerService {
     
     private ServerService(){
         serversInfo=new ArrayList<ServerInfo>(10);    
-        ServerInfo info = new ServerInfo();
-        info.setId(1);
-        info.setServerName("server 1");
-        serversInfo.add(info);
     }
     
     public static ServerService getServerService(){
@@ -35,6 +31,7 @@ public class ServerService {
     
     public ServerInfo createNewServerInfo(){
         ServerInfo serverInfo = new ServerInfo();
+        serverInfo.setId(serversInfo.size());
         serversInfo.add(serverInfo);
         return serverInfo;
     }
