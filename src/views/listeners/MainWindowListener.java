@@ -13,5 +13,7 @@ import data.ServerInfo;
  */
 public interface MainWindowListener {
     public void updateServers();
-    
+    public void openNewServerDialog();
+    public void openConfigServerDialog();
+    public void remmoveServer(int serverID);
 }

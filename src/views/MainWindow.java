@@ -7,6 +7,7 @@ package views;
 
 import javax.swing.BoxLayout;
 import data.ServerInfo;
+import javax.swing.JDialog;
 import logic.ServerService;
 import views.listeners.MainWindowListener;
 
@@ -28,7 +29,7 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
         
         service = ServerService.getServerService();
         updateServers();
-//        new SetupServerDialog(this, false).setVisible(true);
+//     
     }
 
     /**
@@ -167,5 +168,23 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
         contentPanel.add(new NewServerPanel(this));
         contentPanel.setLayout(serversLayout);
         pack();
+    }
+
+    @Override
+    public void openNewServerDialog() {
+        JDialog dialog = new SetupServerDialog(this, true);
+        dialog.setLocationRelativeTo(this); //set to center main window 
+        dialog.setVisible(true);
+    }
+    
+
+    @Override
+    public void openConfigServerDialog() {
+
+    }
+
+    @Override
+    public void remmoveServer(int serverID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

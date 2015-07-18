@@ -23,17 +23,12 @@ public class NewServerPanel extends javax.swing.JPanel {
      */
     public NewServerPanel(MainWindowListener listener) {
         initComponents();
-        this.listener= listener;
-        
+        this.listener= listener;     
         addButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ServerInfo info = new ServerInfo();
-                info.setServerName("server 2");
-                ServerService service = ServerService.getServerService();
-                service.add(info);
-                listener.updateServers();
+                listener.openNewServerDialog();
             }
         });
     }
