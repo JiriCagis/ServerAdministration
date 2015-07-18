@@ -164,7 +164,7 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
         contentPanel.removeAll();
         BoxLayout serversLayout = new BoxLayout(contentPanel, BoxLayout.X_AXIS);
         for(ServerInfo serverInfo:service.getAllServersInfo())
-            contentPanel.add(new ServerPanel(serverInfo));
+            contentPanel.add(new ServerPanel(serverInfo,this));
         contentPanel.add(new NewServerPanel(this));
         contentPanel.setLayout(serversLayout);
         pack();
@@ -172,7 +172,7 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
 
     @Override
     public void openNewServerDialog() {
-        ServerInfo newInfo = new ServerInfo();
+        ServerInfo newInfo = service.createNewServerInfo();
         JDialog dialog = new SetupServerDialog(this, true,newInfo,this);
         dialog.setLocationRelativeTo(this); //set to center main window 
         dialog.setVisible(true);
@@ -180,12 +180,11 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
     
 
     @Override
-    public void openConfigServerDialog() {
-
+    public void openConfigServerDialog(ServerInfo info) {
+        JDialog dialog = new SetupServerDialog(this, true,info,this);
+        dialog.setLocationRelativeTo(this); //set to center main window 
+        dialog.setVisible(true);
     }
 
-    @Override
-    public void remmoveServer(int serverID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 }

@@ -6,6 +6,8 @@
 package views;
 
 import data.ServerInfo;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import logic.ServerService;
 import views.listeners.MainWindowListener;
 
@@ -18,24 +20,44 @@ public class SetupServerDialog extends javax.swing.JDialog {
     private ServerInfo serverInfo;
     private MainWindowListener listener;
     private ServerService service;
-    
+
     /**
      * Creates new form SetupServerDialog
      */
     public SetupServerDialog(java.awt.Frame parent, boolean modal,
-            ServerInfo serverInfo,MainWindowListener listener) {
+            ServerInfo serverInfo, MainWindowListener listener) {
+
         super(parent, modal);
         initComponents();
         setTitle("Setup server");
         setResizable(false);
         this.serverInfo = serverInfo;
-        this.listener = listener;   
-        
+        this.listener = listener;
+
         service = ServerService.getServerService();
-        convertServerInfoToInputBoxs();    
+        convertServerInfoToInputBoxs();
+
+        okBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                convertInputBoxToServerInfo();
+                service.update(serverInfo);
+                listener.updateServers();
+                dispose();
+            }
+        });
+
+        cancelBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
     }
-    
-    private void convertServerInfoToInputBoxs(){
+
+    private void convertServerInfoToInputBoxs() {
         serverNameEdit.setText(serverInfo.getServerName());
         startScriptEdit.setText(serverInfo.getStartScript());
         restartScriptEdit.setText(serverInfo.getRestartScript());
@@ -44,8 +66,8 @@ public class SetupServerDialog extends javax.swing.JDialog {
         sourceFolderEdit.setText(serverInfo.getSourceFolder());
         targetFolderEdit.setText(serverInfo.getTargetFolder());
     }
-    
-    private void convertInputBoxToServerInfo(){
+
+    private void convertInputBoxToServerInfo() {
         serverInfo.setServerName(serverNameEdit.getText());
         serverInfo.setStartScript(startScriptEdit.getText());
         serverInfo.setRestartScript(restartScriptEdit.getText());
@@ -227,7 +249,6 @@ public class SetupServerDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

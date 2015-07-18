@@ -6,6 +6,10 @@
 package views;
 
 import data.ServerInfo;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import logic.ServerService;
+import views.listeners.MainWindowListener;
 
 /**
  *
@@ -13,12 +17,37 @@ import data.ServerInfo;
  */
 public class ServerPanel extends javax.swing.JPanel {
 
+    private MainWindowListener listener;
+    private ServerService service;
+    private ServerInfo serverInfo;
+    
     /**
      * Creates new form ServerPanel
      */
-    public ServerPanel(ServerInfo serverInfo) {
+    public ServerPanel(ServerInfo serverInfo,MainWindowListener listener) {
         initComponents();
+        this.serverInfo = serverInfo;
+        this.listener = listener;
+        this.service = ServerService.getServerService();
+        
         serverNameLbl.setText(serverInfo.getServerName());
+        
+        configurateBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listener.openConfigServerDialog(serverInfo);
+            }
+        });
+        
+        delBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                service.remove(serverInfo);
+                listener.updateServers();
+            }
+        });
     }
 
     /**

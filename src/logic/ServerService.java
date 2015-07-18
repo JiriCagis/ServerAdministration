@@ -33,12 +33,24 @@ public class ServerService {
         return serverService;
     }
     
-    public void add(ServerInfo serverInfo){
+    public ServerInfo createNewServerInfo(){
+        ServerInfo serverInfo = new ServerInfo();
         serversInfo.add(serverInfo);
+        return serverInfo;
     }
     
     public void remove(ServerInfo serverInfo){
         serversInfo.remove(serverInfo);
+    }
+    
+    public void update(ServerInfo serverInfo){
+        for(int i=0;i<serversInfo.size();i++)
+        {
+            if(serversInfo.get(i).getId() == serverInfo.getId())
+            {
+                serversInfo.set(i, serverInfo);
+            }
+        }
     }
     
     public List<ServerInfo> getAllServersInfo(){
