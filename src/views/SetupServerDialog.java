@@ -5,20 +5,54 @@
  */
 package views;
 
+import data.ServerInfo;
+import logic.ServerService;
+import views.listeners.MainWindowListener;
+
 /**
  *
  * @author adminuser
  */
 public class SetupServerDialog extends javax.swing.JDialog {
 
+    private ServerInfo serverInfo;
+    private MainWindowListener listener;
+    private ServerService service;
+    
     /**
      * Creates new form SetupServerDialog
      */
-    public SetupServerDialog(java.awt.Frame parent, boolean modal) {
+    public SetupServerDialog(java.awt.Frame parent, boolean modal,
+            ServerInfo serverInfo,MainWindowListener listener) {
         super(parent, modal);
         initComponents();
         setTitle("Setup server");
         setResizable(false);
+        this.serverInfo = serverInfo;
+        this.listener = listener;   
+        
+        service = ServerService.getServerService();
+        convertServerInfoToInputBoxs();    
+    }
+    
+    private void convertServerInfoToInputBoxs(){
+        serverNameEdit.setText(serverInfo.getServerName());
+        startScriptEdit.setText(serverInfo.getStartScript());
+        restartScriptEdit.setText(serverInfo.getRestartScript());
+        stopScriptEdit.setText(serverInfo.getStopScript());
+        checkBoxWebFolder.setSelected(serverInfo.isAutomaticSynchnize());
+        sourceFolderEdit.setText(serverInfo.getSourceFolder());
+        targetFolderEdit.setText(serverInfo.getTargetFolder());
+    }
+    
+    private void convertInputBoxToServerInfo(){
+        serverInfo.setServerName(serverNameEdit.getText());
+        serverInfo.setStartScript(startScriptEdit.getText());
+        serverInfo.setRestartScript(restartScriptEdit.getText());
+        serverInfo.setStopScript(stopScriptEdit.getText());
+        serverInfo.setAutomaticSynchnize(checkBoxWebFolder.isSelected());
+        serverInfo.setSourceFolder(sourceFolderEdit.getText());
+        serverInfo.setTargetFolder(targetFolderEdit.getText());
     }
 
     /**
@@ -194,47 +228,7 @@ public class SetupServerDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SetupServerDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SetupServerDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SetupServerDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SetupServerDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                SetupServerDialog dialog = new SetupServerDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
