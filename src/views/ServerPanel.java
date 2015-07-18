@@ -19,7 +19,6 @@ public class ServerPanel extends javax.swing.JPanel {
     public ServerPanel(ServerInfo serverInfo) {
         initComponents();
         serverNameLbl.setText(serverInfo.getServerName());
-        stopBtn.setEnabled(false);
     }
 
     /**

@@ -5,31 +5,30 @@
  */
 package views;
 
-import java.awt.Button;
 import javax.swing.BoxLayout;
 import data.ServerInfo;
+import logic.ServerService;
+import views.listeners.MainWindowListener;
 
 /**
  *
  * @author adminuser
  */
-public class MainWindow extends javax.swing.JFrame {
+public class MainWindow extends javax.swing.JFrame implements MainWindowListener {
 
+    private ServerService service;
+    
     /**
      * Creates new form MainWindow
      */
     public MainWindow() {
         initComponents();
-        
         setTitle("Server utility");
         setResizable(false);
-        BoxLayout serversLayout = new BoxLayout(contentPanel, BoxLayout.X_AXIS);
-        ServerInfo serverInfo = new ServerInfo(1, "server1");
-        contentPanel.add(new ServerPanel(serverInfo));
-        contentPanel.add(new ServerPanel(serverInfo));
-        contentPanel.add(new NewServerPanel());
-        contentPanel.setLayout(serversLayout);
-        pack();
+        
+        service = ServerService.getServerService();
+        updateServers();
+//        new SetupServerDialog(this, false).setVisible(true);
     }
 
     /**
@@ -158,4 +157,15 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton settingBtn;
     private javax.swing.JPanel topPanel;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void updateServers() {
+        contentPanel.removeAll();
+        BoxLayout serversLayout = new BoxLayout(contentPanel, BoxLayout.X_AXIS);
+        for(ServerInfo serverInfo:service.getAllServersInfo())
+            contentPanel.add(new ServerPanel(serverInfo));
+        contentPanel.add(new NewServerPanel(this));
+        contentPanel.setLayout(serversLayout);
+        pack();
+    }
 }

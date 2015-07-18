@@ -5,17 +5,37 @@
  */
 package views;
 
+import data.ServerInfo;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import logic.ServerService;
+import views.listeners.MainWindowListener;
+
 /**
  *
  * @author adminuser
  */
 public class NewServerPanel extends javax.swing.JPanel {
 
+    private MainWindowListener listener;
     /**
      * Creates new form NewServerPanel
      */
-    public NewServerPanel() {
+    public NewServerPanel(MainWindowListener listener) {
         initComponents();
+        this.listener= listener;
+        
+        addButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ServerInfo info = new ServerInfo();
+                info.setServerName("server 2");
+                ServerService service = ServerService.getServerService();
+                service.add(info);
+                listener.updateServers();
+            }
+        });
     }
 
     /**
