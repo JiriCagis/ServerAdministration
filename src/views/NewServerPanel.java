@@ -48,13 +48,13 @@ public class NewServerPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         addButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        descriptionLabel = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         addButton.setText("+");
 
-        jLabel1.setText("Add new server");
+        descriptionLabel.setText("Add new server");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -67,7 +67,7 @@ public class NewServerPanel extends javax.swing.JPanel {
                         .addComponent(addButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(76, 76, 76)
-                        .addComponent(jLabel1)))
+                        .addComponent(descriptionLabel)))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -76,7 +76,7 @@ public class NewServerPanel extends javax.swing.JPanel {
                 .addGap(147, 147, 147)
                 .addComponent(addButton)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addComponent(descriptionLabel)
                 .addContainerGap(161, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -84,6 +84,6 @@ public class NewServerPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel descriptionLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -43,11 +43,14 @@ public class ServerPanel extends javax.swing.JPanel {
         serverNameLbl.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         serverNameLbl.setText("Server 1");
 
+        startBtn.setBackground(new java.awt.Color(51, 204, 0));
         startBtn.setText("Start");
         startBtn.setMinimumSize(new java.awt.Dimension(238, 25));
 
+        stopBtn.setBackground(new java.awt.Color(255, 51, 51));
         stopBtn.setText("Stop");
 
+        restartBtn.setBackground(new java.awt.Color(204, 204, 0));
         restartBtn.setText("Restart");
 
         configurateBtn.setText("Configurate");
