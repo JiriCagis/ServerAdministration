@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
 import data.ServerInfo;
@@ -11,22 +6,14 @@ import java.awt.event.ActionListener;
 import logic.ServerService;
 import views.listeners.MainWindowListener;
 
-/**
- *
- * @author adminuser
- */
 public class SetupServerDialog extends javax.swing.JDialog {
 
     private ServerInfo serverInfo;
     private MainWindowListener listener;
     private ServerService service;
 
-    /**
-     * Creates new form SetupServerDialog
-     */
     public SetupServerDialog(java.awt.Frame parent, boolean modal,
             ServerInfo serverInfo, MainWindowListener listener) {
-
         super(parent, modal);
         initComponents();
         setTitle("Setup server");
@@ -34,9 +21,12 @@ public class SetupServerDialog extends javax.swing.JDialog {
         this.serverInfo = serverInfo;
         this.listener = listener;
 
-        service = ServerService.getServerService();
+        service = ServerService.getInstance();
         convertServerInfoToInputBoxs();
+        registrateButtonListeners();
+    }
 
+    private void registrateButtonListeners() {
         okBtn.addActionListener(new ActionListener() {
 
             @Override

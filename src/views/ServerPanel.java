@@ -1,37 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
 import data.ServerInfo;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import logic.ServerService;
 import views.listeners.MainWindowListener;
 
-/**
- *
- * @author adminuser
- */
 public class ServerPanel extends javax.swing.JPanel {
 
     private MainWindowListener listener;
     private ServerService service;
     private ServerInfo serverInfo;
-    
-    /**
-     * Creates new form ServerPanel
-     */
-    public ServerPanel(ServerInfo serverInfo,MainWindowListener listener) {
+
+    public ServerPanel(ServerInfo serverInfo, MainWindowListener listener) {
         initComponents();
         this.serverInfo = serverInfo;
         this.listener = listener;
-        this.service = ServerService.getServerService();
-        
+        this.service = ServerService.getInstance();
+        indicationPanel.setBackground(Color.GREEN);
         serverNameLbl.setText(serverInfo.getServerName());
-        
+        registrateButtonListeners();
+    }
+
+    private void registrateButtonListeners() {
         configurateBtn.addActionListener(new ActionListener() {
 
             @Override
@@ -39,13 +31,37 @@ public class ServerPanel extends javax.swing.JPanel {
                 listener.openConfigServerDialog(serverInfo);
             }
         });
-        
+
         delBtn.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 service.remove(serverInfo);
                 listener.updateServers();
+            }
+        });
+
+        startBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                service.startServer(serverInfo.getId());
+            }
+        });
+
+        restartBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                service.restartServer(serverInfo.getId());
+            }
+        });
+
+        stopBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                service.stopServer(serverInfo.getId());
             }
         });
     }
@@ -65,9 +81,12 @@ public class ServerPanel extends javax.swing.JPanel {
         restartBtn = new javax.swing.JButton();
         configurateBtn = new javax.swing.JButton();
         delBtn = new javax.swing.JButton();
+        indicationPanel = new javax.swing.JPanel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        setPreferredSize(new java.awt.Dimension(260, 360));
+        setMaximumSize(new java.awt.Dimension(225, 340));
+        setMinimumSize(new java.awt.Dimension(225, 340));
+        setPreferredSize(new java.awt.Dimension(225, 340));
 
         serverNameLbl.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         serverNameLbl.setText("Server 1");
@@ -86,44 +105,60 @@ public class ServerPanel extends javax.swing.JPanel {
 
         delBtn.setText("Del");
 
+        indicationPanel.setBackground(new java.awt.Color(102, 255, 0));
+        indicationPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout indicationPanelLayout = new javax.swing.GroupLayout(indicationPanel);
+        indicationPanel.setLayout(indicationPanelLayout);
+        indicationPanelLayout.setHorizontalGroup(
+            indicationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+        indicationPanelLayout.setVerticalGroup(
+            indicationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 15, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(configurateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(configurateBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(delBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(delBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(stopBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(restartBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                            .addComponent(startBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(serverNameLbl)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)
+                        .addComponent(indicationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(serverNameLbl))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(stopBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(restartBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(startBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(serverNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(startBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(restartBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(stopBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(indicationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(serverNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(startBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(restartBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(stopBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(configurateBtn)
                     .addComponent(delBtn))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         serverNameLbl.getAccessibleContext().setAccessibleName("serverNameLbl");
@@ -133,6 +168,7 @@ public class ServerPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton configurateBtn;
     private javax.swing.JButton delBtn;
+    private javax.swing.JPanel indicationPanel;
     private javax.swing.JButton restartBtn;
     private javax.swing.JLabel serverNameLbl;
     private javax.swing.JButton startBtn;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
 import data.ServerInfo;
@@ -11,26 +6,25 @@ import java.awt.event.ActionListener;
 import logic.ServerService;
 import views.listeners.MainWindowListener;
 
-/**
- *
- * @author adminuser
- */
 public class NewServerPanel extends javax.swing.JPanel {
 
     private MainWindowListener listener;
-    /**
-     * Creates new form NewServerPanel
-     */
+
     public NewServerPanel(MainWindowListener listener) {
         initComponents();
-        this.listener= listener;     
+        this.listener= listener; 
+        registrateButtonListeners();
+       
+    }
+  
+    private void registrateButtonListeners(){
         addButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 listener.openNewServerDialog();
             }
-        });
+        }); 
     }
 
     /**
@@ -46,7 +40,11 @@ public class NewServerPanel extends javax.swing.JPanel {
         descriptionLabel = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setMaximumSize(new java.awt.Dimension(225, 340));
+        setMinimumSize(new java.awt.Dimension(225, 340));
 
+        addButton.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        addButton.setForeground(new java.awt.Color(0, 153, 0));
         addButton.setText("+");
 
         descriptionLabel.setText("Add new server");
@@ -56,14 +54,14 @@ public class NewServerPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(64, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(addButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(descriptionLabel)))
-                .addContainerGap(72, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(descriptionLabel)
+                        .addGap(49, 49, 49))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(addButton)
+                        .addGap(85, 85, 85))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -72,7 +70,7 @@ public class NewServerPanel extends javax.swing.JPanel {
                 .addComponent(addButton)
                 .addGap(18, 18, 18)
                 .addComponent(descriptionLabel)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -1,35 +1,70 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
 import javax.swing.BoxLayout;
 import data.ServerInfo;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 import logic.ServerService;
 import views.listeners.MainWindowListener;
 
-/**
- *
- * @author adminuser
- */
 public class MainWindow extends javax.swing.JFrame implements MainWindowListener {
 
     private ServerService service;
-    
-    /**
-     * Creates new form MainWindow
-     */
+
     public MainWindow() {
         initComponents();
         setTitle("Server utility");
         setResizable(false);
-        
-        service = ServerService.getServerService();
+        setLocationRelativeTo(null);   
+        service = ServerService.getInstance();
+        registrateButtonListeners();
         updateServers();
-//     
+    }
+    
+    private void registrateButtonListeners(){
+        settingBtn.setEnabled(false); //functionality not implementet yet because application is very base
+        helpBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openHelpDialog();
+            }
+        });
+    }
+
+    @Override
+    public void updateServers() {
+        contentPanel.removeAll();
+        BoxLayout serversLayout = new BoxLayout(contentPanel, BoxLayout.X_AXIS);
+        for (ServerInfo serverInfo : service.getAllServersInfo()) {
+            contentPanel.add(new ServerPanel(serverInfo, this));
+        }
+        contentPanel.add(new NewServerPanel(this));
+        contentPanel.setLayout(serversLayout);
+        pack();
+    }
+
+    @Override
+    public void openNewServerDialog() {
+        ServerInfo newInfo = service.createNewServerInfo();
+        JDialog dialog = new SetupServerDialog(this, true, newInfo, this);
+        dialog.setLocationRelativeTo(this); //set to center main window 
+        dialog.setVisible(true);
+    }
+
+    @Override
+    public void openConfigServerDialog(ServerInfo info) {
+        JDialog dialog = new SetupServerDialog(this, true, info, this);
+        dialog.setLocationRelativeTo(this); //set to center main window 
+        dialog.setVisible(true);
+    }
+
+    @Override
+    public void openHelpDialog() {
+        JDialog dialog = new HelpDialog(this, true);
+        dialog.setLocationRelativeTo(this); //set to center main window 
+        dialog.setVisible(true);
     }
 
     /**
@@ -116,40 +151,6 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainWindow().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contentPanel;
@@ -158,33 +159,5 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
     private javax.swing.JButton settingBtn;
     private javax.swing.JPanel topPanel;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void updateServers() {
-        contentPanel.removeAll();
-        BoxLayout serversLayout = new BoxLayout(contentPanel, BoxLayout.X_AXIS);
-        for(ServerInfo serverInfo:service.getAllServersInfo())
-            contentPanel.add(new ServerPanel(serverInfo,this));
-        contentPanel.add(new NewServerPanel(this));
-        contentPanel.setLayout(serversLayout);
-        pack();
-    }
-
-    @Override
-    public void openNewServerDialog() {
-        ServerInfo newInfo = service.createNewServerInfo();
-        JDialog dialog = new SetupServerDialog(this, true,newInfo,this);
-        dialog.setLocationRelativeTo(this); //set to center main window 
-        dialog.setVisible(true);
-    }
-    
-
-    @Override
-    public void openConfigServerDialog(ServerInfo info) {
-        JDialog dialog = new SetupServerDialog(this, true,info,this);
-        dialog.setLocationRelativeTo(this); //set to center main window 
-        dialog.setVisible(true);
-    }
-
 
 }

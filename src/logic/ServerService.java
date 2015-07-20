@@ -23,7 +23,7 @@ public class ServerService {
         serversInfo=new ArrayList<ServerInfo>(10);    
     }
     
-    public static ServerService getServerService(){
+    public static ServerService getInstance(){
         if(serverService==null)
             serverService = new ServerService();
         return serverService;
@@ -52,6 +52,18 @@ public class ServerService {
     
     public List<ServerInfo> getAllServersInfo(){
         return serversInfo;
+    }
+    
+    public void startServer(int serverId){
+        System.out.println("Start server" + serverId);
+    }
+    
+    public void stopServer(int serverId){
+         System.out.println("Stop server" + serverId);
+    }
+    
+    public void restartServer(int serverId){
+         System.out.println("Restart server" + serverId);
     }
     
 }
