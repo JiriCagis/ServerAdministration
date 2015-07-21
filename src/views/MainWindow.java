@@ -2,27 +2,36 @@ package views;
 
 import javax.swing.BoxLayout;
 import data.ServerInfo;
+import data.XmlParser;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
 import javax.swing.JDialog;
 import logic.ServerService;
 import views.listeners.MainWindowListener;
 
 public class MainWindow extends javax.swing.JFrame implements MainWindowListener {
 
-    private ServerService service;
+    private final File outFile = new File("configuration.xml");
+    private final ServerService service;
 
     public MainWindow() {
         initComponents();
+
+        service = ServerService.getInstance();
+        service.setServersInfo(XmlParser.parse(outFile));
+
         setTitle("Server utility");
         setResizable(false);
-        setLocationRelativeTo(null);   
-        service = ServerService.getInstance();
+        setLocationRelativeTo(null);
         registrateButtonListeners();
+        addWindowListener(new WindowListener());
         updateServers();
     }
-    
-    private void registrateButtonListeners(){
+
+    private void registrateButtonListeners() {
         settingBtn.setEnabled(false); //functionality not implementet yet because application is very base
         helpBtn.addActionListener(new ActionListener() {
 
@@ -33,11 +42,19 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
         });
     }
 
+    private class WindowListener extends WindowAdapter {
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            XmlParser.save(service.getServersInfo(), outFile);
+        }
+    }
+
     @Override
     public void updateServers() {
         contentPanel.removeAll();
         BoxLayout serversLayout = new BoxLayout(contentPanel, BoxLayout.X_AXIS);
-        for (ServerInfo serverInfo : service.getAllServersInfo()) {
+        for (ServerInfo serverInfo : service.getServersInfo()) {
             contentPanel.add(new ServerPanel(serverInfo, this));
         }
         contentPanel.add(new NewServerPanel(this));

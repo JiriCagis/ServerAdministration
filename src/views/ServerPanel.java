@@ -18,9 +18,27 @@ public class ServerPanel extends javax.swing.JPanel {
         this.serverInfo = serverInfo;
         this.listener = listener;
         this.service = ServerService.getInstance();
-        indicationPanel.setBackground(Color.GREEN);
-        serverNameLbl.setText(serverInfo.getServerName());
         registrateButtonListeners();
+        serverNameLbl.setText(serverInfo.getServerName());
+        
+        if(serverInfo.isRun())
+        {
+            indicationPanel.setBackground(Color.GREEN);
+            startBtn.setEnabled(false);
+            
+        }
+        else if(service.isAvailable(serverInfo)){
+            indicationPanel.setBackground(Color.YELLOW);
+            stopBtn.setEnabled(false);
+            restartBtn.setEnabled(false);
+        }
+        else{
+            indicationPanel.setBackground(Color.RED);
+            startBtn.setEnabled(true);
+            stopBtn.setEnabled(false);
+            restartBtn.setEnabled(false);   
+        }
+        
     }
 
     private void registrateButtonListeners() {
@@ -46,6 +64,7 @@ public class ServerPanel extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 service.startServer(serverInfo.getId());
+                listener.updateServers();
             }
         });
 
@@ -54,6 +73,7 @@ public class ServerPanel extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 service.restartServer(serverInfo.getId());
+                listener.updateServers();
             }
         });
 
@@ -62,9 +82,11 @@ public class ServerPanel extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 service.stopServer(serverInfo.getId());
+                listener.updateServers();
             }
         });
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

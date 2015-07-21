@@ -14,56 +14,72 @@ import java.util.List;
  * @author adminuser
  */
 public class ServerService {
-    
+
     private static ServerService serverService;
     private List<ServerInfo> serversInfo;
-    
-    
-    private ServerService(){
-        serversInfo=new ArrayList<ServerInfo>(10);    
+
+    private ServerService() {
+        serversInfo = new ArrayList<ServerInfo>(10);
     }
-    
-    public static ServerService getInstance(){
-        if(serverService==null)
+
+    public static ServerService getInstance() {
+        if (serverService == null) {
             serverService = new ServerService();
+        }
         return serverService;
     }
-    
-    public ServerInfo createNewServerInfo(){
+
+    public ServerInfo createNewServerInfo() {
         ServerInfo serverInfo = new ServerInfo();
         serverInfo.setId(serversInfo.size());
         serversInfo.add(serverInfo);
         return serverInfo;
     }
-    
-    public void remove(ServerInfo serverInfo){
+
+    public void remove(ServerInfo serverInfo) {
         serversInfo.remove(serverInfo);
     }
-    
-    public void update(ServerInfo serverInfo){
-        for(int i=0;i<serversInfo.size();i++)
-        {
-            if(serversInfo.get(i).getId() == serverInfo.getId())
-            {
+
+    public void update(ServerInfo serverInfo) {
+        for (int i = 0; i < serversInfo.size(); i++) {
+            if (serversInfo.get(i).getId() == serverInfo.getId()) {
                 serversInfo.set(i, serverInfo);
             }
         }
     }
-    
-    public List<ServerInfo> getAllServersInfo(){
-        return serversInfo;
-    }
-    
-    public void startServer(int serverId){
+
+    public void startServer(int serverId) {
+        for (int i = 0; i < serversInfo.size(); i++) {
+            if (serversInfo.get(i).getId() == serverId) {
+                serversInfo.get(i).setRun(true);
+            }
+        }
         System.out.println("Start server" + serverId);
     }
-    
-    public void stopServer(int serverId){
-         System.out.println("Stop server" + serverId);
+
+    public void stopServer(int serverId) {
+        for (int i = 0; i < serversInfo.size(); i++) {
+            if (serversInfo.get(i).getId() == serverId) {
+                serversInfo.get(i).setRun(false);
+            }
+        }
+        System.out.println("Stop server" + serverId);
     }
-    
-    public void restartServer(int serverId){
-         System.out.println("Restart server" + serverId);
+
+    public void restartServer(int serverId) {
+        System.out.println("Restart server" + serverId);
     }
-    
+
+    public boolean isAvailable(ServerInfo info) {
+        return true;
+    }
+
+    public List<ServerInfo> getServersInfo() {
+        return serversInfo;
+    }
+
+    public void setServersInfo(List<ServerInfo> serversInfo) {
+        this.serversInfo = serversInfo;
+    }
+
 }
