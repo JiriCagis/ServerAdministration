@@ -19,15 +19,11 @@ import views.listeners.MainWindowListener;
 
 public class MainWindow extends javax.swing.JFrame implements MainWindowListener {
 
-    private final File outFile = new File("configuration.xml");
     private final ServerService service;
 
     public MainWindow() {
         initComponents();
-
         service = ServerService.getInstance();
-        service.setServersInfo(XmlParser.parse(outFile));
-
         setTitle("Server utility");
         setResizable(false);
         setLocationRelativeTo(null);
@@ -51,7 +47,9 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
 
         @Override
         public void windowClosing(WindowEvent e) {
-            XmlParser.save(service.getServersInfo(), outFile);
+            for(ServerInfo serverInfo:service.getServersInfo())
+                service.stopServer(serverInfo);
+            service.saveState();
         }
     }
 

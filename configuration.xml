@@ -3,14 +3,11 @@
  <object class="java.util.ArrayList">
   <void method="add">
    <object class="data.ServerInfo">
-    <void property="id">
-     <int>7</int>
-    </void>
     <void property="restartScript">
      <string></string>
     </void>
     <void property="serverName">
-     <string>8</string>
+     <string>Jirka</string>
     </void>
     <void property="sourceFolder">
      <string></string>
@@ -29,13 +26,13 @@
   <void method="add">
    <object class="data.ServerInfo">
     <void property="id">
-     <int>8</int>
+     <int>2</int>
     </void>
     <void property="restartScript">
      <string></string>
     </void>
     <void property="serverName">
-     <string>9</string>
+     <string>Honza</string>
     </void>
     <void property="sourceFolder">
      <string></string>
@@ -54,113 +51,13 @@
   <void method="add">
    <object class="data.ServerInfo">
     <void property="id">
-     <int>9</int>
+     <int>3</int>
     </void>
     <void property="restartScript">
      <string></string>
     </void>
     <void property="serverName">
-     <string>10</string>
-    </void>
-    <void property="sourceFolder">
-     <string></string>
-    </void>
-    <void property="startScript">
-     <string></string>
-    </void>
-    <void property="stopScript">
-     <string></string>
-    </void>
-    <void property="targetFolder">
-     <string></string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="data.ServerInfo">
-    <void property="id">
-     <int>10</int>
-    </void>
-    <void property="restartScript">
-     <string></string>
-    </void>
-    <void property="serverName">
-     <string>11</string>
-    </void>
-    <void property="sourceFolder">
-     <string></string>
-    </void>
-    <void property="startScript">
-     <string></string>
-    </void>
-    <void property="stopScript">
-     <string></string>
-    </void>
-    <void property="targetFolder">
-     <string></string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="data.ServerInfo">
-    <void property="id">
-     <int>11</int>
-    </void>
-    <void property="restartScript">
-     <string></string>
-    </void>
-    <void property="serverName">
-     <string>12</string>
-    </void>
-    <void property="sourceFolder">
-     <string></string>
-    </void>
-    <void property="startScript">
-     <string></string>
-    </void>
-    <void property="stopScript">
-     <string></string>
-    </void>
-    <void property="targetFolder">
-     <string></string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="data.ServerInfo">
-    <void property="id">
-     <int>5</int>
-    </void>
-    <void property="restartScript">
-     <string></string>
-    </void>
-    <void property="serverName">
-     <string>2</string>
-    </void>
-    <void property="sourceFolder">
-     <string></string>
-    </void>
-    <void property="startScript">
-     <string></string>
-    </void>
-    <void property="stopScript">
-     <string></string>
-    </void>
-    <void property="targetFolder">
-     <string></string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="data.ServerInfo">
-    <void property="id">
-     <int>6</int>
-    </void>
-    <void property="restartScript">
-     <string></string>
-    </void>
-    <void property="serverName">
-     <string>3</string>
+     <string>kamil</string>
     </void>
     <void property="sourceFolder">
      <string></string>

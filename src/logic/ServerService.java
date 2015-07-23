@@ -1,25 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package logic;
 
 import data.ServerInfo;
-import java.util.ArrayList;
+import data.XmlParser;
+import java.io.File;
 import java.util.List;
 
-/**
- *
- * @author adminuser
- */
 public class ServerService {
 
     private static ServerService serverService;
     private List<ServerInfo> serversInfo;
+    private final File outFile = new File("configuration.xml");
 
     private ServerService() {
-        serversInfo = new ArrayList<ServerInfo>(10);
+        serversInfo = XmlParser.parse(outFile);
     }
 
     public static ServerService getInstance() {
@@ -48,38 +41,28 @@ public class ServerService {
         }
     }
 
-    public void startServer(int serverId) {
-        for (int i = 0; i < serversInfo.size(); i++) {
-            if (serversInfo.get(i).getId() == serverId) {
-                serversInfo.get(i).setRun(true);
-            }
-        }
-        System.out.println("Start server" + serverId);
+     public List<ServerInfo> getServersInfo() {
+        return serversInfo;
+    }
+    public void startServer(ServerInfo serverInfo) {
+        serverInfo.setRun(true);
+        System.out.println("Start server" + serverInfo.getServerName());
     }
 
-    public void stopServer(int serverId) {
-        for (int i = 0; i < serversInfo.size(); i++) {
-            if (serversInfo.get(i).getId() == serverId) {
-                serversInfo.get(i).setRun(false);
-            }
-        }
-        System.out.println("Stop server" + serverId);
+    public void stopServer(ServerInfo serverInfo) {
+        serverInfo.setRun(false);
+        System.out.println("Stop server" + serverInfo.getServerName());
     }
 
-    public void restartServer(int serverId) {
-        System.out.println("Restart server" + serverId);
+    public void restartServer(ServerInfo serverInfo) {
+        System.out.println("Restart server" + serverInfo.getServerName());
     }
 
     public boolean isAvailable(ServerInfo info) {
         return true;
+    } 
+    
+    public void saveState(){
+        XmlParser.save(serversInfo, outFile);
     }
-
-    public List<ServerInfo> getServersInfo() {
-        return serversInfo;
-    }
-
-    public void setServersInfo(List<ServerInfo> serversInfo) {
-        this.serversInfo = serversInfo;
-    }
-
 }

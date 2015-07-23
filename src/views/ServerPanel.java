@@ -63,7 +63,7 @@ public class ServerPanel extends javax.swing.JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                service.startServer(serverInfo.getId());
+                service.startServer(serverInfo);
                 listener.updateServers();
             }
         });
@@ -72,7 +72,7 @@ public class ServerPanel extends javax.swing.JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                service.restartServer(serverInfo.getId());
+                service.restartServer(serverInfo);
                 listener.updateServers();
             }
         });
@@ -81,7 +81,7 @@ public class ServerPanel extends javax.swing.JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                service.stopServer(serverInfo.getId());
+                service.stopServer(serverInfo);
                 listener.updateServers();
             }
         });
