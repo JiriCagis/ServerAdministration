@@ -3,13 +3,18 @@ package views;
 import javax.swing.BoxLayout;
 import data.ServerInfo;
 import data.XmlParser;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import logic.ServerService;
+import java.awt.Toolkit;
 import views.listeners.MainWindowListener;
 
 public class MainWindow extends javax.swing.JFrame implements MainWindowListener {
@@ -60,6 +65,39 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
         contentPanel.add(new NewServerPanel(this));
         contentPanel.setLayout(serversLayout);
         pack();
+
+        if(!isWindowInDisplay())
+            resizeWindow();
+    }
+
+    private boolean isWindowInDisplay() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = (int) (screenSize.getWidth() * 0.9);
+        return (this.getSize().width < screenWidth);
+    }
+
+    private void resizeWindow() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = (int) (screenSize.getWidth() * 0.9);
+        Dimension preparedDimension = new Dimension(screenWidth, contentPanel.getHeight() + 23);
+
+        JScrollPane scrollBar = new JScrollPane();
+        scrollBar.setPreferredSize(preparedDimension);
+        JPanel panelInScrollBar = new JPanel();
+        panelInScrollBar.setPreferredSize(contentPanel.getSize());
+
+        BoxLayout serversLayout2 = new BoxLayout(panelInScrollBar, BoxLayout.X_AXIS);
+        for (ServerInfo serverInfo : service.getServersInfo()) {
+            panelInScrollBar.add(new ServerPanel(serverInfo, this));
+        }
+        panelInScrollBar.add(new NewServerPanel(this));
+        panelInScrollBar.setLayout(serversLayout2);
+
+        scrollBar.setViewportView(panelInScrollBar);
+        contentPanel.removeAll();
+        contentPanel.add(scrollBar);
+        pack();
+
     }
 
     @Override
