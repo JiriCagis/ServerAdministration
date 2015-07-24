@@ -58,8 +58,15 @@ public class ServerService {
         System.out.println("Restart server" + serverInfo.getServerName());
     }
 
-    public boolean isAvailable(ServerInfo info) {
-        return true;
+    public boolean isAvailable(ServerInfo info) { 
+        File startScript = new File(info.getStartScript());
+        File restartScript = new File(info.getRestartScript());
+        File stopScript = new File(info.getStopScript());
+        File sourceFolder = new File(info.getSourceFolder());
+        File targetFolder = new File(info.getTargetFolder());
+        
+        return (startScript.isFile() && restartScript.isFile() && stopScript.isFile() && 
+                (info.isAutomaticSynchnize() ? (sourceFolder.isDirectory() && targetFolder.isDirectory()) : true));
     } 
     
     public void saveState(){

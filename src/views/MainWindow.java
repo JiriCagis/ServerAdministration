@@ -3,6 +3,7 @@ package views;
 import javax.swing.BoxLayout;
 import data.ServerInfo;
 import data.XmlParser;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,32 +71,26 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
 
     private boolean isWindowInDisplay() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = (int) (screenSize.getWidth() * 0.9);
-        return (this.getSize().width < screenWidth);
+        return (this.getSize().width < screenSize.width);
     }
 
     private void resizeWindow() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = (int) (screenSize.getWidth() * 0.9);
-        Dimension preparedDimension = new Dimension(screenWidth, contentPanel.getHeight() + 23);
-
         JScrollPane scrollBar = new JScrollPane();
-        scrollBar.setPreferredSize(preparedDimension);
         JPanel panelInScrollBar = new JPanel();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        scrollBar.setPreferredSize( new Dimension(screenSize.width, contentPanel.getHeight() + 23));     
         panelInScrollBar.setPreferredSize(contentPanel.getSize());
-
-        BoxLayout serversLayout2 = new BoxLayout(panelInScrollBar, BoxLayout.X_AXIS);
-        for (ServerInfo serverInfo : service.getServersInfo()) {
-            panelInScrollBar.add(new ServerPanel(serverInfo, this));
+        
+        BoxLayout serversLayout = new BoxLayout(panelInScrollBar, BoxLayout.X_AXIS);
+        for(Component component:contentPanel.getComponents()){
+            panelInScrollBar.add(component);
         }
-        panelInScrollBar.add(new NewServerPanel(this));
-        panelInScrollBar.setLayout(serversLayout2);
-
+                 
+        panelInScrollBar.setLayout(serversLayout);
         scrollBar.setViewportView(panelInScrollBar);
         contentPanel.removeAll();
         contentPanel.add(scrollBar);
         pack();
-
     }
 
     @Override
@@ -143,7 +138,8 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
         headerLabel.setForeground(new java.awt.Color(255, 255, 255));
         headerLabel.setText("Server utility");
 
-        settingBtn.setText("S");
+        settingBtn.setText("☀");
+        settingBtn.setPreferredSize(new java.awt.Dimension(41, 25));
 
         helpBtn.setText("?");
 
@@ -153,26 +149,23 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
             topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(topPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(topPanelLayout.createSequentialGroup()
-                        .addComponent(headerLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(settingBtn))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(helpBtn)))
+                .addComponent(headerLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(helpBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(settingBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         topPanelLayout.setVerticalGroup(
             topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(topPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(headerLabel)
-                    .addComponent(settingBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(helpBtn)
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(settingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(helpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout contentPanelLayout = new javax.swing.GroupLayout(contentPanel);
@@ -183,7 +176,7 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
         );
         contentPanelLayout.setVerticalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 206, Short.MAX_VALUE)
+            .addGap(0, 209, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -7,7 +7,32 @@
      <string></string>
     </void>
     <void property="serverName">
-     <string>Jirka</string>
+     <string>Server 1</string>
+    </void>
+    <void property="sourceFolder">
+     <string></string>
+    </void>
+    <void property="startScript">
+     <string></string>
+    </void>
+    <void property="stopScript">
+     <string></string>
+    </void>
+    <void property="targetFolder">
+     <string></string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.ServerInfo">
+    <void property="id">
+     <int>1</int>
+    </void>
+    <void property="restartScript">
+     <string></string>
+    </void>
+    <void property="serverName">
+     <string>Server 2</string>
     </void>
     <void property="sourceFolder">
      <string></string>
@@ -32,7 +57,7 @@
      <string></string>
     </void>
     <void property="serverName">
-     <string>Honza</string>
+     <string>3</string>
     </void>
     <void property="sourceFolder">
      <string></string>
@@ -57,7 +82,7 @@
      <string></string>
     </void>
     <void property="serverName">
-     <string>kamil</string>
+     <string>4</string>
     </void>
     <void property="sourceFolder">
      <string></string>
@@ -72,6 +97,62 @@
      <string></string>
     </void>
    </object>
+  </void>
+  <void method="add">
+   <object class="data.ServerInfo">
+    <void property="automaticSynchnize">
+     <boolean>true</boolean>
+    </void>
+    <void property="id">
+     <int>5</int>
+    </void>
+    <void property="restartScript">
+     <string></string>
+    </void>
+    <void property="serverName">
+     <string>8</string>
+    </void>
+    <void property="sourceFolder">
+     <string></string>
+    </void>
+    <void property="startScript">
+     <string></string>
+    </void>
+    <void property="stopScript">
+     <string></string>
+    </void>
+    <void property="targetFolder">
+     <string></string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.ServerInfo" id="ServerInfo0">
+    <void property="id">
+     <int>6</int>
+    </void>
+    <void property="restartScript">
+     <string></string>
+    </void>
+    <void property="serverName">
+     <string>10</string>
+    </void>
+    <void property="sourceFolder">
+     <string></string>
+    </void>
+    <void property="startScript">
+     <string></string>
+    </void>
+    <void property="stopScript">
+     <string></string>
+    </void>
+    <void property="targetFolder">
+     <string></string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object idref="ServerInfo0"/>
   </void>
  </object>
 </java>

@@ -12,7 +12,7 @@ public class ServerPanel extends javax.swing.JPanel {
     private MainWindowListener listener;
     private ServerService service;
     private ServerInfo serverInfo;
-
+    
     public ServerPanel(ServerInfo serverInfo, MainWindowListener listener) {
         initComponents();
         this.serverInfo = serverInfo;
@@ -24,19 +24,19 @@ public class ServerPanel extends javax.swing.JPanel {
         if(serverInfo.isRun())
         {
             indicationPanel.setBackground(Color.GREEN);
-            startBtn.setEnabled(false);
+            startBtn.setEnabled(false);          
             
         }
         else if(service.isAvailable(serverInfo)){
             indicationPanel.setBackground(Color.YELLOW);
             stopBtn.setEnabled(false);
-            restartBtn.setEnabled(false);
+            restartBtn.setEnabled(false);  
         }
         else{
             indicationPanel.setBackground(Color.RED);
-            startBtn.setEnabled(true);
+            startBtn.setEnabled(false);
             stopBtn.setEnabled(false);
-            restartBtn.setEnabled(false);   
+            restartBtn.setEnabled(false);
         }
         
     }
