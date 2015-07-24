@@ -11,7 +11,16 @@ public class HelpDialog extends javax.swing.JDialog {
     public HelpDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setResizable(false);
         registrateButtonListeners();
+        
+        textArea.setText(
+                "Main goal this application is automatization copy java program to web server. " +
+"This is best way for developers codeing in java EE and use external web server. " +
+"Easy you can start,restart and restart server in gui with use bath scripts." +
+"You not need manually unzip war and copy file to server yet. " +
+"After you change XHTML pages, it will automatic reloaded on server. " +
+"This is way to fast develop without stereotype work.\n\n ----> Develop by: Jiri Caga \n ----> Contact: jiricaga30@gmail.com");
     }
     
     private void registrateButtonListeners(){
