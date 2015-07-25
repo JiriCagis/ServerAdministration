@@ -10,7 +10,7 @@
      <string>Pepa</string>
     </void>
     <void property="sourceFolder">
-     <string></string>
+     <string>Pepa server</string>
     </void>
     <void property="startScript">
      <string></string>
@@ -35,7 +35,32 @@
      <string>Ondra</string>
     </void>
     <void property="sourceFolder">
+     <string>Ondra Server</string>
+    </void>
+    <void property="startScript">
      <string></string>
+    </void>
+    <void property="stopScript">
+     <string></string>
+    </void>
+    <void property="targetFolder">
+     <string></string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.ServerInfo">
+    <void property="id">
+     <int>2</int>
+    </void>
+    <void property="restartScript">
+     <string></string>
+    </void>
+    <void property="serverName">
+     <string>Sever 3</string>
+    </void>
+    <void property="sourceFolder">
+     <string>server 3</string>
     </void>
     <void property="startScript">
      <string></string>
