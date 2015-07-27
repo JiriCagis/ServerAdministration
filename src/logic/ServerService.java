@@ -3,7 +3,10 @@ package logic;
 import data.ServerInfo;
 import data.XmlParser;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import logic.synchronize.SynchronizeManager;
 import logic.synchronize.SynchronizeManagerImpl;
 
@@ -50,18 +53,28 @@ public class ServerService {
     }
     public void startServer(ServerInfo serverInfo) {
         serverInfo.setRun(true);
-        synchronizeManager.add(new File(serverInfo.getSourceFolder()), new File(serverInfo.getTargetFolder()));
-        System.out.println("Start server" + serverInfo.getServerName());
+        try {
+            Runtime.getRuntime().exec("cmd /C start "+serverInfo.getStartScript());
+        } catch (IOException ex) {
+            Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void stopServer(ServerInfo serverInfo) {
         serverInfo.setRun(false);
-        synchronizeManager.remove(new File(serverInfo.getSourceFolder()), new File(serverInfo.getTargetFolder()));
-        System.out.println("Stop server" + serverInfo.getServerName());
+        try {
+            Runtime.getRuntime().exec("cmd /c start "+serverInfo.getStopScript());
+        } catch (IOException ex) {
+            Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void restartServer(ServerInfo serverInfo) {
-        System.out.println("Restart server" + serverInfo.getServerName());
+        try {
+            Runtime.getRuntime().exec("cmd /c start "+serverInfo.getRestartScript());
+        } catch (IOException ex) {
+            Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public boolean isAvailable(ServerInfo info) { 
