@@ -48,48 +48,55 @@ public class ServerService {
         }
     }
 
-     public List<ServerInfo> getServersInfo() {
+    public List<ServerInfo> getServersInfo() {
         return serversInfo;
     }
+
     public void startServer(ServerInfo serverInfo) {
-        serverInfo.setRun(true);
+        if(isAvailable(serverInfo)){
+            serverInfo.setRun(true);
         try {
-            Runtime.getRuntime().exec("cmd /C start "+serverInfo.getStartScript());
+            Runtime.getRuntime().exec("cmd /c start " + serverInfo.getStartScript());
         } catch (IOException ex) {
             Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
+        } 
     }
 
     public void stopServer(ServerInfo serverInfo) {
-        serverInfo.setRun(false);
+        if(isAvailable(serverInfo)){
+          serverInfo.setRun(false);
         try {
-            Runtime.getRuntime().exec("cmd /c start "+serverInfo.getStopScript());
+            Runtime.getRuntime().exec("cmd /c start " + serverInfo.getStopScript());
         } catch (IOException ex) {
             Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }  
+        } 
     }
 
     public void restartServer(ServerInfo serverInfo) {
-        try {
-            Runtime.getRuntime().exec("cmd /c start "+serverInfo.getRestartScript());
-        } catch (IOException ex) {
-            Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+        if (isAvailable(serverInfo)) {
+            try {
+                Runtime.getRuntime().exec("cmd /c start " + serverInfo.getRestartScript());
+            } catch (IOException ex) {
+                Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
-    public boolean isAvailable(ServerInfo info) { 
+    public boolean isAvailable(ServerInfo info) {
         File startScript = new File(info.getStartScript());
         File restartScript = new File(info.getRestartScript());
         File stopScript = new File(info.getStopScript());
         File sourceFolder = new File(info.getSourceFolder());
         File targetFolder = new File(info.getTargetFolder());
-        
-        return true;
-//        return (startScript.isFile() && restartScript.isFile() && stopScript.isFile() && 
-//                (info.isAutomaticSynchnize() ? (sourceFolder.isDirectory() && targetFolder.isDirectory()) : true));
-    } 
-    
-    public void saveState(){
+
+        //return true;
+        return (startScript.isFile() && restartScript.isFile() && stopScript.isFile()
+                && (info.isAutomaticSynchnize() ? (sourceFolder.isDirectory() && targetFolder.isDirectory()) : true));
+    }
+
+    public void saveState() {
         XmlParser.save(serversInfo, outFile);
     }
 }

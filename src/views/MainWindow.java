@@ -28,6 +28,7 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
         setTitle("Server utility");
         setResizable(false);
         setLocationRelativeTo(null);
+        setAlwaysOnTop(true);
         registrateButtonListeners();
         addWindowListener(new WindowListener());
         updateServers();
@@ -48,8 +49,10 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
 
         @Override
         public void windowClosing(WindowEvent e) {
-            for(ServerInfo serverInfo:service.getServersInfo())
-                service.stopServer(serverInfo);
+            for(ServerInfo serverInfo:service.getServersInfo()){
+                if(serverInfo.isRun())
+                    service.stopServer(serverInfo);
+            }
             service.saveState();
         }
     }
