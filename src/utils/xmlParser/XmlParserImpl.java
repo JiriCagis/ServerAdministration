@@ -1,6 +1,5 @@
 package utils.xmlParser;
 
-import data.ServerInfo;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
