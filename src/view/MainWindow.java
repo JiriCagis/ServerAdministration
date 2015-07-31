@@ -1,8 +1,8 @@
-package views;
+package view;
 
 import javax.swing.BoxLayout;
 import data.ServerInfo;
-import data.XmlParser;
+import utils.xmlParser.XmlParserImpl;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -14,9 +14,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import logic.ServerService;
+import business.ServerService;
 import java.awt.Toolkit;
-import views.listeners.MainWindowListener;
+import view.listeners.MainWindowListener;
 
 public class MainWindow extends javax.swing.JFrame implements MainWindowListener {
 

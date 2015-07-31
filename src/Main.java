@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package serverutility;
+
 
 import data.ServerInfo;
-import data.XmlParser;
+import utils.xmlParser.XmlParserImpl;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import views.MainWindow;
+import view.MainWindow;
 
 /**
  *

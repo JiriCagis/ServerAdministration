@@ -1,4 +1,4 @@
-package logic.synchronize;
+package utils.synchronize;
 
 import java.util.ArrayList;
 import java.util.Collections;

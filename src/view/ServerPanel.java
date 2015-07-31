@@ -1,11 +1,11 @@
-package views;
+package view;
 
 import data.ServerInfo;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import logic.ServerService;
-import views.listeners.MainWindowListener;
+import business.ServerService;
+import view.listeners.MainWindowListener;
 
 public class ServerPanel extends javax.swing.JPanel {
 

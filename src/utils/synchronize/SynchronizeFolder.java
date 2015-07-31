@@ -1,4 +1,4 @@
-package logic.synchronize;
+package utils.synchronize;
 
 import java.io.File;
 import java.util.Objects;

@@ -1,5 +1,6 @@
-package data;
+package utils.xmlParser;
 
+import data.ServerInfo;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
@@ -13,20 +14,20 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class XmlParser {
-    
-    public static List<ServerInfo> parse(File xmlFile){
+public class XmlParserImpl<T> implements XmlParser<T>{
+       
+    public List<T> parse(File xmlFile){
         try {
             FileInputStream fis = new FileInputStream(xmlFile);
             BufferedInputStream bis = new BufferedInputStream(fis);
             XMLDecoder xmlDecoder = new XMLDecoder(bis);
-            return (List<ServerInfo>) xmlDecoder.readObject();
+            return (List<T>) xmlDecoder.readObject();
         } catch (FileNotFoundException ex) {
             return new ArrayList<>();
         }
     }
     
-    public static void save(List<ServerInfo> list, File outFile){
+    public void save(List<T> list, File outFile){
         try {
             FileOutputStream fos = new FileOutputStream(outFile);
             BufferedOutputStream bos = new BufferedOutputStream(fos);
@@ -34,7 +35,7 @@ public class XmlParser {
             xmlEncoder.writeObject(list);
             xmlEncoder.close();        
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(XmlParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XmlParserImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

@@ -1,24 +1,27 @@
-package logic;
+package business;
 
 import data.ServerInfo;
-import data.XmlParser;
+import utils.xmlParser.XmlParserImpl;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import logic.synchronize.SynchronizeManager;
-import logic.synchronize.SynchronizeManagerImpl;
+import utils.synchronize.SynchronizeManager;
+import utils.synchronize.SynchronizeManagerImpl;
+import utils.xmlParser.XmlParser;
 
 public class ServerService {
 
     private static ServerService serverService;
     private List<ServerInfo> serversInfo;
     private final File outFile = new File("configuration.xml");
+    private final XmlParser xmlParser;
     private SynchronizeManager synchronizeManager;
 
     private ServerService() {
-        serversInfo = XmlParser.parse(outFile);
+        xmlParser = new XmlParserImpl<ServerInfo>();
+        serversInfo = xmlParser.parse(outFile);
         synchronizeManager = new SynchronizeManagerImpl();
     }
 
@@ -91,12 +94,11 @@ public class ServerService {
         File sourceFolder = new File(info.getSourceFolder());
         File targetFolder = new File(info.getTargetFolder());
 
-        //return true;
         return (startScript.isFile() && restartScript.isFile() && stopScript.isFile()
                 && (info.isAutomaticSynchnize() ? (sourceFolder.isDirectory() && targetFolder.isDirectory()) : true));
     }
 
     public void saveState() {
-        XmlParser.save(serversInfo, outFile);
+        xmlParser.save(serversInfo, outFile);
     }
 }

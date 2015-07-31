@@ -1,10 +1,10 @@
-package views;
+package view;
 
 import data.ServerInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import logic.ServerService;
-import views.listeners.MainWindowListener;
+import business.ServerService;
+import view.listeners.MainWindowListener;
 
 public class SetupServerDialog extends javax.swing.JDialog {
 
