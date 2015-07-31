@@ -1,5 +1,6 @@
 package view;
 
+import data.Constant;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,15 +13,14 @@ public class HelpDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setResizable(false);
-        registrateButtonListeners();
+               
+        //setting texts
+        setTitle(Constant.ABOUT_PROGRAM_LABEL);
+        headerLabel.setText(Constant.ABOUT_PROGRAM_LABEL);
+        textArea.setText(Constant.HELP_CONTENT);
+        okButton.setText(Constant.OK_BUTTON_LABEL);
         
-        textArea.setText(
-                "Main goal this application is automatization copy java program to web server. " +
-"This is best way for developers codeing in java EE and use external web server. " +
-"Easy you can start,restart and restart server in gui with use bath scripts." +
-"You not need manually unzip war and copy file to server yet. " +
-"After you change XHTML pages, it will automatic reloaded on server. " +
-"This is way to fast develop without stereotype work.\n\n ----> Develop by: Jiri Caga \n ----> Contact: jiricaga30@gmail.com");
+        registrateButtonListeners();
     }
     
     private void registrateButtonListeners(){

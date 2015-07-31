@@ -1,9 +1,8 @@
 package view;
 
-import data.ServerInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import business.ServerService;
+import data.Constant;
 import view.listeners.MainWindowListener;
 
 public class NewServerPanel extends javax.swing.JPanel {
@@ -13,8 +12,11 @@ public class NewServerPanel extends javax.swing.JPanel {
     public NewServerPanel(MainWindowListener listener) {
         initComponents();
         this.listener= listener; 
-        registrateButtonListeners();
-       
+        
+        //setting texts
+        descriptionLabel.setText(Constant.ADD_NEW_SERVER_LABEL); 
+        
+        registrateButtonListeners();         
     }
   
     private void registrateButtonListeners(){

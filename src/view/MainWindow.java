@@ -2,19 +2,17 @@ package view;
 
 import javax.swing.BoxLayout;
 import data.ServerInfo;
-import utils.xmlParser.XmlParserImpl;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import business.ServerService;
+import data.Constant;
 import java.awt.Toolkit;
 import view.listeners.MainWindowListener;
 
@@ -23,15 +21,20 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
     private final ServerService service;
 
     public MainWindow() {
-        initComponents();
-        service = ServerService.getInstance();
-        setTitle("Server utility");
+        initComponents();    
         setResizable(false);
         setLocationRelativeTo(null);
         setAlwaysOnTop(true);
-        registrateButtonListeners();
         addWindowListener(new WindowListener());
-        updateServers();
+        service = ServerService.getInstance();
+              
+        //setting texts
+        setTitle( Constant.APP_NAME + " " + Constant.APP_VERSION);
+        headerLabel.setText(Constant.APP_NAME + " " + Constant.APP_VERSION);
+         
+        updateWindow(); 
+        registrateButtonListeners();
+        
     }
 
     private void registrateButtonListeners() {
@@ -58,7 +61,7 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
     }
 
     @Override
-    public void updateServers() {
+    public void updateWindow() {
         contentPanel.removeAll();
         BoxLayout serversLayout = new BoxLayout(contentPanel, BoxLayout.X_AXIS);
         for (ServerInfo serverInfo : service.getServersInfo()) {
@@ -72,11 +75,19 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
             resizeWindow();
     }
 
+    /**
+     * Method decide if application window is inside monitor. 
+     * @return true if is inside, else return false
+     */
     private boolean isWindowInDisplay() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         return (this.getSize().width < screenSize.width);
     }
 
+    /**
+     * Method get all components from content panel, place it to scroll panel
+     * and scroll panel place into content panel.
+     */
     private void resizeWindow() {
         JScrollPane scrollBar = new JScrollPane();
         JPanel panelInScrollBar = new JPanel();
@@ -84,6 +95,7 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
         scrollBar.setPreferredSize( new Dimension(screenSize.width, contentPanel.getHeight() + 23));     
         panelInScrollBar.setPreferredSize(contentPanel.getSize());
         
+        //get component gui component from content panel and place to scroll panel
         BoxLayout serversLayout = new BoxLayout(panelInScrollBar, BoxLayout.X_AXIS);
         for(Component component:contentPanel.getComponents()){
             panelInScrollBar.add(component);

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import business.ServerService;
+import data.Constant;
 import view.listeners.MainWindowListener;
 
 public class ServerPanel extends javax.swing.JPanel {
@@ -19,8 +20,16 @@ public class ServerPanel extends javax.swing.JPanel {
         this.listener = listener;
         this.service = ServerService.getInstance();
         registrateButtonListeners();
-        serverNameLbl.setText(serverInfo.getServerName());
         
+        //setting texts
+        serverNameLbl.setText(serverInfo.getServerName());
+        startBtn.setText(Constant.BUTTON_START_LABEL);
+        restartBtn.setText(Constant.BUTTON_RESTART_LABEL);
+        stopBtn.setText(Constant.BUTTON_STOP_LABEL);
+        configurateBtn.setText(Constant.BUTTON_CONFIGURATE_LABEL);
+        delBtn.setText(Constant.BUTTON_DELETE_LABEL);
+         
+        //setting active/inactive buttons and color indicator
         if(serverInfo.isRun())
         {
             indicationPanel.setBackground(Color.GREEN);
@@ -55,7 +64,7 @@ public class ServerPanel extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 service.remove(serverInfo);
-                listener.updateServers();
+                listener.updateWindow();
             }
         });
 
@@ -64,7 +73,7 @@ public class ServerPanel extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 service.startServer(serverInfo);
-                listener.updateServers();
+                listener.updateWindow();
             }
         });
 
@@ -73,7 +82,7 @@ public class ServerPanel extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 service.restartServer(serverInfo);
-                listener.updateServers();
+                listener.updateWindow();
             }
         });
 
@@ -82,7 +91,7 @@ public class ServerPanel extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 service.stopServer(serverInfo);
-                listener.updateServers();
+                listener.updateWindow();
             }
         });
     }

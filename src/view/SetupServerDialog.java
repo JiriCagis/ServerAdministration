@@ -4,6 +4,7 @@ import data.ServerInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import business.ServerService;
+import data.Constant;
 import view.listeners.MainWindowListener;
 
 public class SetupServerDialog extends javax.swing.JDialog {
@@ -14,15 +15,28 @@ public class SetupServerDialog extends javax.swing.JDialog {
 
     public SetupServerDialog(java.awt.Frame parent, boolean modal,
             ServerInfo serverInfo, MainWindowListener listener) {
+        
         super(parent, modal);
         initComponents();
-        setTitle("Setup server");
         setResizable(false);
         this.serverInfo = serverInfo;
         this.listener = listener;
-
         service = ServerService.getInstance();
         convertServerInfoToInputBoxs();
+        
+        //setting texts
+        setTitle(Constant.SETUP_SERVER_LABEL);
+        headerLabel.setText(Constant.SETUP_SERVER_LABEL);
+        okBtn.setText(Constant.OK_BUTTON_LABEL);
+        cancelBtn.setText(Constant.CANCEL_BUTTON_LABEL);
+        serverNameLabel.setText(Constant.SERVER_NAME_LABEL);
+        startScriptLabel.setText(Constant.START_SCRIPT_LABEL);
+        restartScriptLabel.setText(Constant.RESTART_SCRIPT_LABEL);
+        stopScriptLabel.setText(Constant.STOP_SCRIPT_LABEL);
+        checkBoxWebFolder.setText(Constant.AUTOMATIC_SYNCHRONIZE_LABEL);
+        sourceForlderLabel.setText(Constant.SOURCE_FOLDER_LABEL);
+        targetFolderLabel.setText(Constant.TARGET_FOLDER_LABEL);
+        
         registrateButtonListeners();
     }
 
@@ -33,7 +47,7 @@ public class SetupServerDialog extends javax.swing.JDialog {
             public void actionPerformed(ActionEvent e) {
                 convertInputBoxToServerInfo();
                 service.update(serverInfo);
-                listener.updateServers();
+                listener.updateWindow();
                 dispose();
             }
         });

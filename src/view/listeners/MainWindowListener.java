@@ -12,7 +12,7 @@ import data.ServerInfo;
  * @author adminuser
  */
 public interface MainWindowListener {
-    public void updateServers();
+    public void updateWindow();
     public void openNewServerDialog();
     public void openConfigServerDialog(ServerInfo serverInfo);
     public void openHelpDialog();
