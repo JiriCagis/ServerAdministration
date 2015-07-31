@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * Purpose this manager is synchronize folders, you can define source 
  * folder and target folder. When data are change in source folder, manager
- * automatically move change to target folder.
+ * automatically move change to target folder in define time.
  * @author adminuser
  */
 public interface SynchronizeManager {

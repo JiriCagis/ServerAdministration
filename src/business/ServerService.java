@@ -12,13 +12,20 @@ import utils.synchronize.SynchronizeManager;
 import utils.synchronize.SynchronizeManagerImpl;
 import utils.xmlParser.XmlParser;
 
+/**
+ * This class contain main logic in application,
+ * It provide start,restart and stop server, getting
+ * information about servers.
+ * @author adminuser
+ */
 public class ServerService {
 
     private static ServerService serverService;
-    private List<ServerInfo> serversInfo;
+    private final List<ServerInfo> serversInfo;
+    
     private final File outFile = new File("configuration.xml");
     private final XmlParser xmlParser;
-    private SynchronizeManager synchronizeManager;
+    private final SynchronizeManager synchronizeManager;
 
     private ServerService() {
         xmlParser = new XmlParserImpl<ServerInfo>();

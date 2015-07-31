@@ -8,6 +8,10 @@ import java.io.File;
 import java.util.List;
 import javax.swing.JTextField;
 
+/**
+ * Drop file path to text edit.
+ * @author adminuser
+ */
 public class FileDropTarget extends DropTarget {
 
     JTextField textField;

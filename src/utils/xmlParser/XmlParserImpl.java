@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 public class XmlParserImpl<T> implements XmlParser<T>{
        
+    @Override
     public List<T> parse(File xmlFile){
         try {
             FileInputStream fis = new FileInputStream(xmlFile);
@@ -26,6 +27,7 @@ public class XmlParserImpl<T> implements XmlParser<T>{
         }
     }
     
+    @Override
     public void save(List<T> list, File outFile){
         try {
             FileOutputStream fos = new FileOutputStream(outFile);
@@ -35,8 +37,7 @@ public class XmlParserImpl<T> implements XmlParser<T>{
             xmlEncoder.close();        
         } catch (FileNotFoundException ex) {
             Logger.getLogger(XmlParserImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }   
     }
     
 }
