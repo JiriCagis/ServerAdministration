@@ -1,25 +1,30 @@
 package utils.synchronize;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SynchronizeTask extends Thread {
 
     private List<SynchronizeFolder> list = null;
+    private long waitTime;
 
-    public SynchronizeTask() {
+    public SynchronizeTask(long waitTime) {
+        this.waitTime = waitTime;
         list = Collections.synchronizedList(new LinkedList<SynchronizeFolder>());
     }
-    
+
     @Override
     public void run() {
         while (true) {
             try {
-                List<SynchronizeFolder> safeList = new ArrayList<SynchronizeFolder>();
+                List<SynchronizeFolder> safeList = new ArrayList<>();
 
                 synchronized (list) {
                     for (SynchronizeFolder synchronizeFolder : list) {
@@ -28,26 +33,57 @@ public class SynchronizeTask extends Thread {
                 }
 
                 for (SynchronizeFolder synchronizeFolder : safeList) {
-                    if (checkChanges(synchronizeFolder)) {
-                        copyFiles(synchronizeFolder);
-                        System.out.print("Copy files for folder: " + synchronizeFolder.sourceFolder.getPath() + "\n");
-                    }
+                    checkFolder(synchronizeFolder.sourceFolder, synchronizeFolder.targetFolder);
                 }
-                Thread.sleep((long) 10000);
+                Thread.sleep(waitTime);
 
             } catch (Exception e) {
-                 e.printStackTrace();
+                e.printStackTrace();
             }
         }
     }
 
-    private boolean checkChanges(SynchronizeFolder synchronizeFolder) {
-        //to do
-        return true;
+    private static void checkFolder(File sourceFolder, File destinationFolder) {
+        destinationFolder.mkdir();
+        File files[] = sourceFolder.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) //recurse approach with folders
+            {
+                checkFolder(file, new File(destinationFolder, file.getName()));
+            } else {
+                boolean isNeedCopyFile = true;
+                for (File fileInDestination : destinationFolder.listFiles()) //check if is need copy file to destination folder
+                {
+                    if (fileInDestination.getName().equals(file.getName())) {
+                        if (fileInDestination.lastModified() >= file.lastModified()) {
+                            isNeedCopyFile = false;
+                        }
+                    }
+                }
+
+                if (isNeedCopyFile) {
+                    copyFile(file, destinationFolder);
+                    System.out.println("Copy file:" + file.getName() + " to: " + destinationFolder.getAbsolutePath());
+                }
+            }
+        }
     }
 
-    private void copyFiles(SynchronizeFolder synchronizeFolder) {
-        //to do 
+    public static boolean copyFile(File sourceFile, File destinationFolder) {
+        File destinationFile = new File(destinationFolder, sourceFile.getName());
+        try (FileInputStream in = new FileInputStream(sourceFile); FileOutputStream out = new FileOutputStream(destinationFile)) {
+            byte[] buffer = new byte[4096];
+            int count = 0;
+            while ((count = in.read(buffer)) != -1) {
+                out.write(buffer, 0, count);
+            }
+            return true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void add(SynchronizeFolder synchronizeFolder) {

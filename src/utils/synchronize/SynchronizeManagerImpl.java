@@ -4,9 +4,10 @@ import java.io.File;
 
 public class SynchronizeManagerImpl implements SynchronizeManager{
     private SynchronizeTask synchronizeTask = null;
+    private long waitTime;
     
-    public SynchronizeManagerImpl(){
-        synchronizeTask = new SynchronizeTask();
+    public SynchronizeManagerImpl(long waitTime){
+        synchronizeTask = new SynchronizeTask(waitTime);
         synchronizeTask.start();
     }
 

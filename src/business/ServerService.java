@@ -23,7 +23,7 @@ public class ServerService {
     private ServerService() {
         xmlParser = new XmlParserImpl<ServerInfo>();
         serversInfo = xmlParser.parse(outFile);
-        synchronizeManager = new SynchronizeManagerImpl();
+        synchronizeManager = new SynchronizeManagerImpl(200);
     }
 
     public static ServerService getInstance() {
