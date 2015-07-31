@@ -9,9 +9,9 @@ import view.listeners.MainWindowListener;
 
 public class SetupServerDialog extends javax.swing.JDialog {
 
-    private ServerInfo serverInfo;
-    private MainWindowListener listener;
-    private ServerService service;
+    private final ServerInfo serverInfo;
+    private final MainWindowListener listener;
+    private final ServerService service;
 
     public SetupServerDialog(java.awt.Frame parent, boolean modal,
             ServerInfo serverInfo, MainWindowListener listener) {
@@ -36,6 +36,13 @@ public class SetupServerDialog extends javax.swing.JDialog {
         checkBoxWebFolder.setText(Constant.AUTOMATIC_SYNCHRONIZE_LABEL);
         sourceForlderLabel.setText(Constant.SOURCE_FOLDER_LABEL);
         targetFolderLabel.setText(Constant.TARGET_FOLDER_LABEL);
+        
+        //enable drag and drop on text edits
+        startScriptEdit.setDropTarget(new FileDropTarget(startScriptEdit));
+        restartScriptEdit.setDropTarget(new FileDropTarget(restartScriptEdit));
+        stopScriptEdit.setDropTarget(new FileDropTarget(stopScriptEdit));
+        targetFolderEdit.setDropTarget(new FileDropTarget(targetFolderEdit));
+        sourceFolderEdit.setDropTarget(new FileDropTarget(sourceFolderEdit));
         
         registrateButtonListeners();
     }

@@ -85,8 +85,8 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
     }
 
     /**
-     * Method get all components from content panel, place it to scroll panel
-     * and scroll panel place into content panel.
+     * Method get all components from content panel, place it to scroll panel.
+     * Remove all item from content panel and scroll panel place into it.
      */
     private void resizeWindow() {
         JScrollPane scrollBar = new JScrollPane();
