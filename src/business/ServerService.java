@@ -5,6 +5,7 @@ import utils.xmlParser.XmlParserImpl;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.synchronize.SynchronizeManager;
@@ -32,21 +33,20 @@ public class ServerService {
         return serverService;
     }
 
-    public ServerInfo createNewServerInfo() {
-        ServerInfo serverInfo = new ServerInfo();
-        serverInfo.setId(serversInfo.size());
-        serversInfo.add(serverInfo);
-        return serverInfo;
-    }
-
     public void remove(ServerInfo serverInfo) {
         serversInfo.remove(serverInfo);
     }
 
-    public void update(ServerInfo serverInfo) {
-        for (int i = 0; i < serversInfo.size(); i++) {
-            if (serversInfo.get(i).getId() == serverInfo.getId()) {
-                serversInfo.set(i, serverInfo);
+    public void addOrUpdate(ServerInfo serverInfo) {
+        if (serverInfo.getId() == null) {
+            serverInfo.setId(serversInfo.size());
+            serversInfo.add(serverInfo);
+        } else {
+            for (int i = 0; i < serversInfo.size(); i++) {
+                if (Objects.equals(serversInfo.get(i).getId(), serverInfo.getId())) {
+                    serversInfo.set(i, serverInfo);
+                    break;
+                }
             }
         }
     }
@@ -56,25 +56,25 @@ public class ServerService {
     }
 
     public void startServer(ServerInfo serverInfo) {
-        if(isAvailable(serverInfo)){
+        if (isAvailable(serverInfo)) {
             serverInfo.setRun(true);
-        try {
-            Runtime.getRuntime().exec("cmd /c start " + serverInfo.getStartScript());
-        } catch (IOException ex) {
-            Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        } 
+            try {
+                Runtime.getRuntime().exec("cmd /c start " + serverInfo.getStartScript());
+            } catch (IOException ex) {
+                Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public void stopServer(ServerInfo serverInfo) {
-        if(isAvailable(serverInfo)){
-          serverInfo.setRun(false);
-        try {
-            Runtime.getRuntime().exec("cmd /c start " + serverInfo.getStopScript());
-        } catch (IOException ex) {
-            Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
-        }  
-        } 
+        if (isAvailable(serverInfo)) {
+            serverInfo.setRun(false);
+            try {
+                Runtime.getRuntime().exec("cmd /c start " + serverInfo.getStopScript());
+            } catch (IOException ex) {
+                Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public void restartServer(ServerInfo serverInfo) {

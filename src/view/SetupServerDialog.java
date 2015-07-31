@@ -46,7 +46,7 @@ public class SetupServerDialog extends javax.swing.JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 convertInputBoxToServerInfo();
-                service.update(serverInfo);
+                service.addOrUpdate(serverInfo);
                 listener.updateWindow();
                 dispose();
             }

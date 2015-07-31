@@ -1,7 +1,7 @@
 package data;
 
 public class ServerInfo {
-    private int id;
+    private Integer id;
     private boolean run;
     private String serverName;
     private String startScript;
@@ -11,11 +11,11 @@ public class ServerInfo {
     private String sourceFolder;
     private String targetFolder;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

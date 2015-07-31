@@ -110,7 +110,7 @@ public class MainWindow extends javax.swing.JFrame implements MainWindowListener
 
     @Override
     public void openNewServerDialog() {
-        ServerInfo newInfo = service.createNewServerInfo();
+        ServerInfo newInfo = new ServerInfo();
         JDialog dialog = new SetupServerDialog(this, true, newInfo, this);
         dialog.setLocationRelativeTo(this); //set to center main window 
         dialog.setVisible(true);
