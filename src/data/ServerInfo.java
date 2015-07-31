@@ -82,8 +82,5 @@ public class ServerInfo {
     public void setTargetFolder(String targetFolder) {
         this.targetFolder = targetFolder;
     }
-    
-    
-    
-    
+      
 }
