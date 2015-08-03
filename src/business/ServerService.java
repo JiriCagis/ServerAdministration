@@ -65,7 +65,7 @@ public class ServerService {
     public void startServer(ServerInfo serverInfo) {
         try {
             if (isAvailable(serverInfo)) {
-                Runtime.getRuntime().exec("cmd /c start " + serverInfo.getStartScript());
+                Runtime.getRuntime().exec("cmd /c start " + serverInfo.getStartScript() + " ^& exit");
                 File sourceFolder = new File(serverInfo.getSourceFolder());
                 File targetFolder = new File(serverInfo.getTargetFolder());
                 synchronizeManager.add(sourceFolder, targetFolder);
@@ -79,7 +79,7 @@ public class ServerService {
     public void stopServer(ServerInfo serverInfo) {
         try {
             if (isAvailable(serverInfo)) {
-                Runtime.getRuntime().exec("cmd /c start " + serverInfo.getStopScript());
+                Runtime.getRuntime().exec("cmd /c start " + serverInfo.getStopScript() + " ^& exit");
                 File sourceFolder = new File(serverInfo.getSourceFolder());
                 File targetFolder = new File(serverInfo.getTargetFolder());
                 synchronizeManager.remove(sourceFolder, targetFolder);
@@ -93,7 +93,7 @@ public class ServerService {
     public void restartServer(ServerInfo serverInfo) {
         try {
             if (isAvailable(serverInfo)) {
-                Runtime.getRuntime().exec("cmd /c start " + serverInfo.getRestartScript());
+                Runtime.getRuntime().exec("cmd /c start " + serverInfo.getRestartScript() + " ^& exit");
             }
         } catch (Exception e) {
             Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, e);
