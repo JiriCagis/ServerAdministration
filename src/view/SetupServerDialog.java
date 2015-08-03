@@ -10,6 +10,7 @@ import view.listeners.MainWindowListener;
 public class SetupServerDialog extends javax.swing.JDialog {
 
     private final ServerInfo serverInfo;
+    private final ServerInfo previousServerInfo;
     private final MainWindowListener listener;
     private final ServerService service;
 
@@ -20,6 +21,7 @@ public class SetupServerDialog extends javax.swing.JDialog {
         initComponents();
         setResizable(false);
         this.serverInfo = serverInfo;
+        this.previousServerInfo = new ServerInfo(serverInfo);
         this.listener = listener;
         service = ServerService.getInstance();
         convertServerInfoToInputBoxs();
@@ -53,6 +55,8 @@ public class SetupServerDialog extends javax.swing.JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 convertInputBoxToServerInfo();
+                if(previousServerInfo.isRun())
+                    service.stopServer(previousServerInfo);
                 service.addOrUpdate(serverInfo);
                 listener.updateWindow();
                 dispose();

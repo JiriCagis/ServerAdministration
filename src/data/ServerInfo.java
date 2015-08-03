@@ -1,6 +1,7 @@
 package data;
 
 public class ServerInfo {
+
     private Integer id;
     private boolean run;
     private String serverName;
@@ -10,6 +11,22 @@ public class ServerInfo {
     private boolean automaticSynchnize;
     private String sourceFolder;
     private String targetFolder;
+
+    public ServerInfo(){
+        
+    }
+    
+    public ServerInfo(ServerInfo object) {
+        id = object.getId();
+        run = object.isRun();
+        serverName = object.getServerName();
+        startScript = object.getStartScript();
+        restartScript = object.getRestartScript();
+        stopScript = object.getStopScript();
+        automaticSynchnize = object.isAutomaticSynchnize();
+        sourceFolder = object.getSourceFolder();
+        targetFolder = object.getTargetFolder();
+    }
 
     public Integer getId() {
         return id;
@@ -82,5 +99,5 @@ public class ServerInfo {
     public void setTargetFolder(String targetFolder) {
         this.targetFolder = targetFolder;
     }
-      
+
 }

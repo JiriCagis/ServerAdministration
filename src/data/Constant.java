@@ -31,7 +31,7 @@ public class Constant {
 
     //help dialog
     public static final String ABOUT_PROGRAM_LABEL = "About program";
-    public static final String HELP_CONTENT =  "This is way to fast develop without stereotype work.\n\n ----> Develop by: Jiri Caga \n ----> Contact: jiricaga30@gmail.com" +
+    public static final String HELP_CONTENT =
             "Main goal this application is automatization copy java program to web server. " +
             "This is best way for developers codeing in java EE and use external web server. " +
             "Easy you can start,restart and restart server in gui with use bath scripts." +

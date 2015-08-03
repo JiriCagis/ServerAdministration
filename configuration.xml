@@ -1,75 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="1.7.0_51" class="java.beans.XMLDecoder">
+<java version="1.7.0_79" class="java.beans.XMLDecoder">
  <object class="java.util.ArrayList">
   <void method="add">
    <object class="data.ServerInfo">
-    <void property="restartScript">
-     <string>c:\project\server_utility\script\Restart_Administration_Prometera_Local.bat</string>
+    <void property="automaticSynchnize">
+     <boolean>true</boolean>
     </void>
-    <void property="serverName">
-     <string>Admin Prom loc</string>
-    </void>
-    <void property="sourceFolder">
-     <string></string>
-    </void>
-    <void property="startScript">
-     <string>c:\project\server_utility\script\Start_Administration_Prometera_Local.bat</string>
-    </void>
-    <void property="stopScript">
-     <string>c:\project\server_utility\script\Stop_Server.bat</string>
-    </void>
-    <void property="targetFolder">
-     <string></string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="data.ServerInfo">
     <void property="id">
-     <int>1</int>
+     <int>0</int>
     </void>
     <void property="restartScript">
-     <string>c:\project\server_utility\script\Restart_Administration_Prometera.bat</string>
+     <string>C:\project\server_utility\script\Restart_Administration_Prometera_Local.bat</string>
     </void>
     <void property="serverName">
-     <string>Admin Prometera</string>
+     <string>Admin Prom Loc</string>
     </void>
     <void property="sourceFolder">
-     <string></string>
+     <string>C:\project\energy\Administration\admin-web\src\main\webapp</string>
     </void>
     <void property="startScript">
-     <string>c:\project\server_utility\script\Start_Administration_Prometera.bat</string>
+     <string>C:\project\server_utility\script\Start_Administration_Prometera_Local.bat</string>
     </void>
     <void property="stopScript">
-     <string>c:\project\server_utility\script\Stop_Server.bat</string>
+     <string>C:\project\server_utility\script\Stop_Server.bat</string>
     </void>
     <void property="targetFolder">
-     <string></string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="data.ServerInfo">
-    <void property="id">
-     <int>2</int>
-    </void>
-    <void property="restartScript">
-     <string>c:\project\server_utility\script\Restart_Administration_Skagerak.bat</string>
-    </void>
-    <void property="serverName">
-     <string>Admin Skagerak</string>
-    </void>
-    <void property="sourceFolder">
-     <string></string>
-    </void>
-    <void property="startScript">
-     <string>c:\project\server_utility\script\Start_Administration_Skagerak.bat</string>
-    </void>
-    <void property="stopScript">
-     <string>c:\project\server_utility\script\Stop_Server.bat</string>
-    </void>
-    <void property="targetFolder">
-     <string></string>
+     <string>C:\project\server_tomee\webapps\Administration</string>
     </void>
    </object>
   </void>

@@ -13,16 +13,16 @@ import utils.synchronize.SynchronizeManagerImpl;
 import utils.xmlParser.XmlParser;
 
 /**
- * This class contain main logic in application,
- * It provide start,restart and stop server, getting
- * information about servers.
+ * This class contain main logic in application, It provide start,restart and
+ * stop server, getting information about servers.
+ *
  * @author adminuser
  */
 public class ServerService {
 
     private static ServerService serverService;
     private final List<ServerInfo> serversInfo;
-    
+
     private final File outFile = new File("configuration.xml");
     private final XmlParser xmlParser;
     private final SynchronizeManager synchronizeManager;
@@ -63,34 +63,40 @@ public class ServerService {
     }
 
     public void startServer(ServerInfo serverInfo) {
-        if (isAvailable(serverInfo)) {
-            serverInfo.setRun(true);
-            try {
+        try {
+            if (isAvailable(serverInfo)) {
                 Runtime.getRuntime().exec("cmd /c start " + serverInfo.getStartScript());
-            } catch (IOException ex) {
-                Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+                File sourceFolder = new File(serverInfo.getSourceFolder());
+                File targetFolder = new File(serverInfo.getTargetFolder());
+                synchronizeManager.add(sourceFolder, targetFolder);
+                serverInfo.setRun(true);
             }
+        } catch (Exception e) {
+            Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
     public void stopServer(ServerInfo serverInfo) {
-        if (isAvailable(serverInfo)) {
-            serverInfo.setRun(false);
-            try {
+        try {
+            if (isAvailable(serverInfo)) {
                 Runtime.getRuntime().exec("cmd /c start " + serverInfo.getStopScript());
-            } catch (IOException ex) {
-                Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+                File sourceFolder = new File(serverInfo.getSourceFolder());
+                File targetFolder = new File(serverInfo.getTargetFolder());
+                synchronizeManager.remove(sourceFolder, targetFolder);
+                serverInfo.setRun(false);
             }
+        } catch (Exception e) {
+            Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
     public void restartServer(ServerInfo serverInfo) {
-        if (isAvailable(serverInfo)) {
-            try {
+        try {
+            if (isAvailable(serverInfo)) {
                 Runtime.getRuntime().exec("cmd /c start " + serverInfo.getRestartScript());
-            } catch (IOException ex) {
-                Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (Exception e) {
+            Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -102,7 +108,7 @@ public class ServerService {
         File targetFolder = new File(info.getTargetFolder());
 
         return (startScript.isFile() && restartScript.isFile() && stopScript.isFile()
-                && (info.isAutomaticSynchnize() ? (sourceFolder.isDirectory() && targetFolder.isDirectory()) : true));
+                && (info.isAutomaticSynchnize() ? (sourceFolder.isDirectory()) : true));
     }
 
     public void saveState() {
