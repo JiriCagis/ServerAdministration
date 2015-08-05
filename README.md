@@ -13,6 +13,9 @@ Automated repeat parts and faster develop
 
 <h3> Technologies </h3>
 Programming language; Java 7
+
 Graphical interface: Swing
+
 Persist data: XML format
+
 Scripts: Windows Command batch
