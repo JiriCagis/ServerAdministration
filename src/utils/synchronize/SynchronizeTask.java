@@ -45,28 +45,34 @@ public class SynchronizeTask extends Thread {
 
     private static void checkFolder(File sourceFolder, File destinationFolder) {
         destinationFolder.mkdir();
-        File files[] = sourceFolder.listFiles();
-        for (File file : files) {
-            if (file.isDirectory()) //recurse approach with folders
-            {
-                checkFolder(file, new File(destinationFolder, file.getName()));
-            } else {
-                boolean isNeedCopyFile = true;
-                for (File fileInDestination : destinationFolder.listFiles()) //check if is need copy file to destination folder
-                {
-                    if (fileInDestination.getName().equals(file.getName())) {
-                        if (fileInDestination.lastModified() >= file.lastModified()) {
-                            isNeedCopyFile = false;
-                        }
-                    }
-                }
 
-                if (isNeedCopyFile) {
-                    copyFile(file, destinationFolder);
-                    System.out.println("Copy file:" + file.getName() + " to: " + destinationFolder.getAbsolutePath());
-                }
+        File sourceFiles[] = sourceFolder.listFiles();
+        File destinationFiles[] = destinationFolder.listFiles();
+
+        for (File sourceFile : sourceFiles) {
+            if (sourceFile.isDirectory()) //recurse approach with folders
+            {
+                checkFolder(sourceFile, new File(destinationFolder, sourceFile.getName()));
+                continue;
+            }
+
+            File fileInDestination = findFileInDestination(sourceFile, destinationFiles);
+
+            if (fileInDestination == null || sourceFile.lastModified() > fileInDestination.lastModified()) {
+                copyFile(sourceFile, destinationFolder);
+                System.out.println("Copy file:" + sourceFile.getName() + " to: " + destinationFolder.getAbsolutePath());
             }
         }
+
+    }
+
+    public static File findFileInDestination(File file, File[] files) {
+        for (File testFile : files) {
+            if (testFile.getName().equals(file.getName())) {
+                return testFile;
+            }
+        }
+        return null;
     }
 
     public static boolean copyFile(File sourceFile, File destinationFolder) {
