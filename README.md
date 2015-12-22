@@ -4,7 +4,7 @@ Purpose this application is automation stereotypy work, when programmer use exte
 web server. Easy you can start,restart and restart server in gui with use bath scripts.
 You not need manually unzip war and copy file to server yet. After you change XHTML pages, 
 it will automatic reloaded on server. This is way to fast develop and reduce repeat parts.
-
+<img src="https://github.com/JiriCagis/ServerUtility/blob/master/documentation/Server_Utility_use_case.svg"/>
 <h3> Main function </h3>
 - Build on open standard for run any java ee web server
 - Synchronization pages(xhtml, css, image) on background
